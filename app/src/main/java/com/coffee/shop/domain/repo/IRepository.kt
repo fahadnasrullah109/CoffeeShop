@@ -14,4 +14,5 @@ interface IRepository {
     fun register(): Flow<DataResource<Response<LoginResponse>>>
     fun forgotPassword(): Flow<DataResource<Response<LoginResponse>>>
     fun verifyOTP(): Flow<DataResource<Response<LoginResponse>>>
+    fun markIntroductionShown(): Flow<Unit>
 }

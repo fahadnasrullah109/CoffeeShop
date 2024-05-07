@@ -7,6 +7,7 @@ import com.coffee.shop.domain.usecases.ForgotPasswordUseCase
 import com.coffee.shop.domain.usecases.GetLoggedInUserUseCase
 import com.coffee.shop.domain.usecases.LoginUseCase
 import com.coffee.shop.domain.usecases.LogoutUseCase
+import com.coffee.shop.domain.usecases.MarkIntroductionShownUseCase
 import com.coffee.shop.domain.usecases.OTPValidationUseCase
 import com.coffee.shop.domain.usecases.PasswordValidationUseCase
 import com.coffee.shop.domain.usecases.RegisterUseCase
@@ -65,7 +66,13 @@ class UseCaseModule {
 
     @ViewModelScoped
     @Provides
-    fun provideVerifyOTPUseCase(repository: IRepository) = VerifyOTPUseCase(repository, Dispatchers.IO)
+    fun provideVerifyOTPUseCase(repository: IRepository) =
+        VerifyOTPUseCase(repository, Dispatchers.IO)
+
+    @ViewModelScoped
+    @Provides
+    fun provideMarkIntroductionShownUseCase(repository: IRepository) =
+        MarkIntroductionShownUseCase(repository, Dispatchers.IO)
 
     @ViewModelScoped
     @Provides

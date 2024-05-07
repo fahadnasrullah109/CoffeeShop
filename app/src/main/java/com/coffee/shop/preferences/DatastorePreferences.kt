@@ -19,6 +19,12 @@ class DatastorePreferences(private val context: Context) {
             preferences[KEY_IS_INTRODUCTION_PRESENTED] ?: false
         }
 
+    suspend fun saveIntroductionShown() {
+        context.userPreferences.edit {
+            it[KEY_IS_INTRODUCTION_PRESENTED] = true
+        }
+    }
+
     suspend fun clear() {
         context.userPreferences.edit {
             it.clear()
