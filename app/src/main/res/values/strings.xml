@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">CoffeeShop</string>
+    <string name="label_get_started">Get Started</string>
+    <string name="label_introduction_title">Coffee so good,\nyour taste buds\nwill love it.</string>
+    <string name="label_introduction_description">The best grain, the finest roast, the\npowerful flavor.</string>
+    <string name="label_login_title">Sign In</string>
+    <string name="label_login_description">Welcome back</string>
+    <string name="label_login_email_address">Email address</string>
+    <string name="label_login_password">Password</string>
+    <string name="label_login_login">Login</string>
+    <string name="label_login_forgot_password">Forgot password?</string>
+    <string name="label_login_new_member">New member?</string>
+    <string name="label_login_register">Sign up</string>
+    <string name="email_error">Invalid email</string>
+    <string name="empty_email_error">Please fill out your email</string>
+    <string name="password_error">Invalid password</string>
+    <string name="empty_password_error">Please fill out your password</string>
+    <string name="empty_username_error">Please fill out your username</string>
+    <string name="username_error">Invalid username</string>
+    <string name="empty_confirm_password_error">Please fill out your confirm password</string>
+    <string name="confirm_password_error">Passwords didn\'t matched</string>
+    <string name="empty_otp_error">Please fill out OTP</string>
+    <string name="otp_error">Invalid OTP, try again</string>
+
+    <string name="label_register_title">Sign Up</string>
+    <string name="label_register_confirm_password">Confirm password</string>
+    <string name="label_register_description">Create an account here</string>
+    <string name="label_register_already_member">Already a member?</string>
+    <string name="label_register_register">Register</string>
+    <string name="label_register_terms_prefix">By signing up you agree with our</string>
+    <string name="label_register_terms">Terms of Use</string>
+    <string name="label_register_login">Sign In</string>
+
+    <string name="label_forgot_password_title">Forgot Password?</string>
+    <string name="label_forgot_password_description">Enter your email address</string>
+
+
+    <string name="email_content_desc">email icon</string>
+    <string name="show_password_content_desc">show password icon</string>
+    <string name="hide_password_content_desc">hide password icon</string>
+    <string name="username_content_desc">user icon</string>
+    <string name="label_register_username">Username</string>
+    <string name="label_done">Done</string>
+    <string name="label_verification_title">Verification</string>
+    <string name="label_verification_description">Enter the OTP code we sent you</string>
+    <string name="label_verify">Verify</string>
+</resources>
