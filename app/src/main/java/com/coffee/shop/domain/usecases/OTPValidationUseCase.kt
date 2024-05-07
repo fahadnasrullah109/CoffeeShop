@@ -21,5 +21,5 @@ class OTPValidationUseCase @Inject constructor() {
 
     private fun isBlank(otp: String) = otp.isBlank()
 
-    private fun isValidOTP(otp: String) = otp.length == AppConstant.validPasswordLength
+    private fun isValidOTP(otp: String) = otp.length == AppConstant.validOTPLength
 }

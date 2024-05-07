@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -111,14 +112,7 @@ fun VerificationScreen(
             )
             Spacer(modifier = Modifier.height(20.dp))
 
-            val defaultOTPCellConfig = OhTeePeeCellConfiguration.withDefaults(
-                borderColor = textGrayColor,
-                borderWidth = 1.dp,
-                shape = RoundedCornerShape(16.dp),
-                textStyle = TextStyle(
-                    color = Color.Black
-                )
-            )
+
             OhTeePeeInput(
                 value = uiState.otp,
                 onValueChange = { newValue, isValid ->
@@ -126,12 +120,29 @@ fun VerificationScreen(
                 },
                 configurations = OhTeePeeConfigurations.withDefaults(
                     cellsCount = 4,
-                    emptyCellConfig = defaultOTPCellConfig,
+                    emptyCellConfig = OhTeePeeCellConfiguration.withDefaults(
+                        borderColor = textGrayColor,
+                        borderWidth = 1.dp,
+                        shape = RoundedCornerShape(16.dp),
+                        textStyle = TextStyle(
+                            color = Color.Black
+                        )
+                    ),
                     cellModifier = Modifier
                         .padding(horizontal = 4.dp)
                         .width(48.dp).height(60.dp),
+                    activeCellConfig = OhTeePeeCellConfiguration.withDefaults(
+                        borderColor = MaterialTheme.colorScheme.primary,
+                        borderWidth = 1.dp,
+                        shape = RoundedCornerShape(16.dp),
+                        textStyle = TextStyle(
+                            color = Color.Black
+                        )
+                    )
                 ),
             )
+
+            Spacer(modifier = Modifier.height(10.dp))
             
             uiState.otpError?.let {
                 AppErrorText(

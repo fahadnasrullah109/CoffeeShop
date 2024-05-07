@@ -53,7 +53,7 @@ class VerificationViewModel @Inject constructor(
                 }
 
                 is VerificationUIEvents.OnOTPChanged -> _uiState.value =
-                    _uiState.value.copy(otp = event.otp)
+                    _uiState.value.copy(otp = event.otp.trim())
 
             }
         }
