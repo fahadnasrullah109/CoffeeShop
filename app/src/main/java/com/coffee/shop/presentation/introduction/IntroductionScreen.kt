@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.cofee.shop.R
 import com.coffee.shop.components.CofeeButton
 import com.coffee.shop.theme.CofeeShopTheme
@@ -28,12 +30,14 @@ import com.coffee.shop.theme.soraFamily
 import com.coffee.shop.theme.textGrayColor
 
 @Composable
-fun IntroductionScreen(modifier: Modifier = Modifier, onGetStarted: () -> Unit) {
-    IntroductionScreenContent(modifier = modifier, onGetStarted = onGetStarted)
-}
-
-@Composable
-fun IntroductionScreenContent(modifier: Modifier, onGetStarted: () -> Unit) {
+fun IntroductionScreen(
+    modifier: Modifier = Modifier,
+    viewModel: IntroductionViewModel,
+    onGetStarted: () -> Unit
+) {
+    LaunchedEffect(key1 = Unit) {
+        viewModel.onEvent(IntroductionUIEvents.OnIntroductionShown)
+    }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -80,9 +84,9 @@ fun IntroductionScreenContent(modifier: Modifier, onGetStarted: () -> Unit) {
             Spacer(modifier = Modifier.height(20.dp))
 
             CofeeButton(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
-                    .height(65.dp),
+                    .height(55.dp),
                 buttonTitle = stringResource(id = R.string.label_get_started),
                 onTap = onGetStarted
             )
@@ -94,6 +98,6 @@ fun IntroductionScreenContent(modifier: Modifier, onGetStarted: () -> Unit) {
 @Composable
 private fun IntroductionScreenPreview() {
     CofeeShopTheme {
-        IntroductionScreen() {}
+        IntroductionScreen(viewModel = hiltViewModel()) {}
     }
 }

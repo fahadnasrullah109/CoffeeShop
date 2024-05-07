@@ -16,10 +16,11 @@ import com.coffee.shop.presentation.authentication.forgotpassword.ForgotPassword
 import com.coffee.shop.presentation.authentication.login.LoginScreen
 import com.coffee.shop.presentation.authentication.register.RegisterScreen
 import com.coffee.shop.presentation.authentication.verification.VerificationScreen
+import com.coffee.shop.presentation.introduction.IntroductionScreen
 import com.coffee.shop.presentation.splash.SplashScreen
 
 object AppUri {
-    const val uri = "https://lats.com"
+    const val uri = "https://cofeeshop.com"
 }
 
 @Composable
@@ -38,6 +39,7 @@ fun CofeeNavHost(
         registerGraph(navController, "$uri/${Destinations.Register.route}")
         forgotPasswordGraph(navController, "$uri/${Destinations.ForgotPassword.route}")
         verificationGraph(navController, "$uri/${Destinations.Verification.route}")
+        introductionGraph(navController, "$uri/${Destinations.Introduction.route}")
     }
 }
 
@@ -125,6 +127,25 @@ fun NavGraphBuilder.verificationGraph(navController: NavController, route: Strin
             onOTPVerified = {
                 navController.navigate(route = "$uri/${Destinations.Login.route}") {
                     popUpTo("$uri/${Destinations.Login.route}") {
+                        inclusive = true
+                    }
+                }
+            },
+        )
+    }
+}
+
+fun NavGraphBuilder.introductionGraph(navController: NavController, route: String) {
+    composable(
+        route = route,
+        deepLinks = listOf(navDeepLink { uriPattern = Destinations.Introduction.route })
+    ) {
+        IntroductionScreen(
+            modifier = Modifier.fillMaxSize(),
+            viewModel = hiltViewModel(),
+            onGetStarted = {
+                navController.navigate(route = "$uri/${Destinations.Login.route}") {
+                    popUpTo("$uri/${Destinations.Introduction.route}") {
                         inclusive = true
                     }
                 }

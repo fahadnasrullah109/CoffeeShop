@@ -41,12 +41,7 @@ class SplashViewModel @Inject constructor(
                 introScreenDeferred.await()
                 loggedInUserDeferred.await()
 
-
-                _uiState.value = _uiState.value.copy(
-                    route = Destinations.Login.route
-                )
-
-                /*if (shouldShowIntroduction) {
+                if (shouldShowIntroduction) {
                     _uiState.value = _uiState.value.copy(
                         route = Destinations.Introduction.route
                     )
@@ -58,7 +53,7 @@ class SplashViewModel @Inject constructor(
                     _uiState.value = _uiState.value.copy(
                         route = Destinations.Login.route
                     )
-                }*/
+                }
             }
         }
     }
@@ -72,7 +67,7 @@ class SplashViewModel @Inject constructor(
         viewModelScope.launch {
             introductionDecisionUseCase.execute(Unit).collect { dataResource ->
                 dataResource.onSuccess {
-                    isUserLoggedIn = true
+                    shouldShowIntroduction = this.data
                 }
             }
         }
@@ -83,7 +78,7 @@ class SplashViewModel @Inject constructor(
             getLoggedInUserUseCase.execute(Unit).collect { dataResource ->
                 dataResource.onSuccess {
                     this.data?.let {
-                        isUserLoggedIn = true
+                        isUserLoggedIn = false
                     }
                 }
             }

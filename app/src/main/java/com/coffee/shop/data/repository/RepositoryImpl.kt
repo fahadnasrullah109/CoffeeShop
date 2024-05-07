@@ -1,4 +1,4 @@
-package flagdps.lats.data.repository
+package com.coffee.shop.data.repository
 
 import android.content.Context
 import com.coffee.shop.data.DataResource
@@ -30,7 +30,12 @@ class RepositoryImpl(
     private val userMapper by lazy { UserMapper() }
     override fun shouldShowIntroduction(): Flow<DataResource<Boolean>> = flow {
         val isShown = preferences.isIntroductionPresented.firstOrNull()
-        emit(DataResource.Success(isShown ?: false))
+        isShown?.let {
+            emit(DataResource.Success(it.not()))
+        } ?: run {
+            emit(DataResource.Success(true))
+        }
+
     }.flowOn(dispatcher)
 
     override fun getLoggedInUser(): Flow<DataResource<DomainUser?>> = flow {
@@ -144,6 +149,10 @@ class RepositoryImpl(
             )
         )
         emit(DataResource.Success(Response.success(usr)))
+    }.flowOn(dispatcher)
+
+    override fun markIntroductionShown(): Flow<Unit> = flow<Unit> {
+        preferences.saveIntroductionShown()
     }.flowOn(dispatcher)
 
     companion object {
