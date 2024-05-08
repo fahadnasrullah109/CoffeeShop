@@ -16,6 +16,7 @@ import com.coffee.shop.presentation.authentication.forgotpassword.ForgotPassword
 import com.coffee.shop.presentation.authentication.login.LoginScreen
 import com.coffee.shop.presentation.authentication.register.RegisterScreen
 import com.coffee.shop.presentation.authentication.verification.VerificationScreen
+import com.coffee.shop.presentation.dashboard.DashboardScreen
 import com.coffee.shop.presentation.introduction.IntroductionScreen
 import com.coffee.shop.presentation.splash.SplashScreen
 
@@ -40,6 +41,7 @@ fun CofeeNavHost(
         forgotPasswordGraph(navController, "$uri/${Destinations.ForgotPassword.route}")
         verificationGraph(navController, "$uri/${Destinations.Verification.route}")
         introductionGraph(navController, "$uri/${Destinations.Introduction.route}")
+        dashboardGraph("$uri/${Destinations.Dashboard.route}")
     }
 }
 
@@ -150,6 +152,16 @@ fun NavGraphBuilder.introductionGraph(navController: NavController, route: Strin
                     }
                 }
             },
+        )
+    }
+}
+
+fun NavGraphBuilder.dashboardGraph(route: String) {
+    composable(
+        route = route, deepLinks = listOf(navDeepLink { uriPattern = Destinations.Dashboard.route })
+    ) {
+        DashboardScreen(
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }
