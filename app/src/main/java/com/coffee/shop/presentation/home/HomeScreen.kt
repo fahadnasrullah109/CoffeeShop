@@ -268,7 +268,7 @@ private fun PromoView(modifier: Modifier, promoUrl: String?) {
     promoUrl?.let {
         AsyncImage(
             contentScale = ContentScale.Crop,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(16.dp)),
             model = ImageRequest.Builder(LocalContext.current).data("$GET_IMAGES_URL$it")
@@ -279,7 +279,7 @@ private fun PromoView(modifier: Modifier, promoUrl: String?) {
         )
     } ?: run {
         EmptyPromo(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .height(100.dp)
         )
