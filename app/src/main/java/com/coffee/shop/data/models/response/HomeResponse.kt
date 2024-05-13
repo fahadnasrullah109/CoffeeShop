@@ -9,5 +9,5 @@ import kotlinx.parcelize.Parcelize
 data class HomeResponse(
     @SerializedName("user") val user: User,
     @SerializedName("promoUrl") val promoUrl: String? = null,
-    @SerializedName("coffeeCategories") val coffeeCategories: List<Coffee>
+    @SerializedName("coffeeCategories") val coffeeCategories: List<CoffeeCategory>
 ) : Parcelable

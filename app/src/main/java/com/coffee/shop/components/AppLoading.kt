@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.coffee.shop.theme.CofeeShopTheme
+import com.coffee.shop.theme.CoffeeShopTheme
 
 @Composable
 fun Loading(modifier: Modifier = Modifier) {
@@ -25,7 +25,7 @@ fun Loading(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun LoadingPreview() {
-    CofeeShopTheme {
+    CoffeeShopTheme {
         Loading(modifier = Modifier.fillMaxSize())
     }
 }

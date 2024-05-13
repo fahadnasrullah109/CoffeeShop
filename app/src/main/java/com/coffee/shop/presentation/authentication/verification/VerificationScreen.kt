@@ -10,13 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -35,8 +30,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,8 +38,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cofee.shop.R
 import com.coffee.shop.components.AppErrorText
-import com.coffee.shop.components.CofeeButton
-import com.coffee.shop.theme.CofeeShopTheme
+import com.coffee.shop.components.CoffeeButton
+import com.coffee.shop.theme.CoffeeShopTheme
 import com.coffee.shop.theme.soraFamily
 import com.coffee.shop.theme.textGrayColor
 import com.coffee.shop.theme.textTitleColor
@@ -158,7 +151,7 @@ fun VerificationScreen(
                     .height(55.dp),
                 contentAlignment = Alignment.Center
             ) {
-                CofeeButton(
+                CoffeeButton(
                     modifier = modifier.fillMaxSize(),
                     isEnabled = uiState.loading.not(),
                     buttonTitle = stringResource(id = R.string.label_verify),
@@ -184,7 +177,7 @@ fun VerificationScreen(
 @Preview
 @Composable
 private fun ForgotPasswordScreenPreview() {
-    CofeeShopTheme {
+    CoffeeShopTheme {
         VerificationScreen(
             modifier = Modifier.fillMaxSize(),
             viewModel = hiltViewModel(),

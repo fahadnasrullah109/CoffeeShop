@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cofee.shop.R
-import com.coffee.shop.theme.CofeeShopTheme
+import com.coffee.shop.theme.CoffeeShopTheme
 
 @Composable
 fun SplashScreen(
@@ -49,7 +49,7 @@ private fun SplashContent(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun SplashScreenPreview() {
-    CofeeShopTheme {
+    CoffeeShopTheme {
         SplashScreen(onTimeout = {})
     }
 }
