@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cofee.shop.R
-import com.coffee.shop.components.CofeeButton
-import com.coffee.shop.theme.CofeeShopTheme
+import com.coffee.shop.components.CoffeeButton
+import com.coffee.shop.theme.CoffeeShopTheme
 import com.coffee.shop.theme.soraFamily
 import com.coffee.shop.theme.textGrayColor
 
@@ -83,7 +83,7 @@ fun IntroductionScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            CofeeButton(
+            CoffeeButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp),
@@ -97,7 +97,7 @@ fun IntroductionScreen(
 @Preview
 @Composable
 private fun IntroductionScreenPreview() {
-    CofeeShopTheme {
+    CoffeeShopTheme {
         IntroductionScreen(viewModel = hiltViewModel()) {}
     }
 }

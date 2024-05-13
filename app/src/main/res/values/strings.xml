@@ -39,9 +39,17 @@
     <string name="show_password_content_desc">show password icon</string>
     <string name="hide_password_content_desc">hide password icon</string>
     <string name="username_content_desc">user icon</string>
+    <string name="location_content_description">Location icon</string>
+
+
     <string name="label_register_username">Username</string>
     <string name="label_done">Done</string>
     <string name="label_verification_title">Verification</string>
     <string name="label_verification_description">Enter the OTP code we sent you</string>
     <string name="label_verify">Verify</string>
+    <string name="label_home_location">Location</string>
+    <string name="label_search_cofee">Search coffee</string>
+    <string name="label_promo_goes_here">Promo goes here</string>
+    <string name="label_empty_coffees">No Cofees found to show.</string>
+    <string name="generic_error">Something went wrong, please try again later.</string>
 </resources>

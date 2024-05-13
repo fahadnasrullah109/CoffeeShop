@@ -42,8 +42,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cofee.shop.R
 import com.coffee.shop.components.AppErrorText
-import com.coffee.shop.components.CofeeButton
-import com.coffee.shop.theme.CofeeShopTheme
+import com.coffee.shop.components.CoffeeButton
+import com.coffee.shop.theme.CoffeeShopTheme
 import com.coffee.shop.theme.soraFamily
 import com.coffee.shop.theme.textGrayColor
 import com.coffee.shop.theme.textTitleColor
@@ -134,7 +134,7 @@ fun ForgotPasswordScreen(
                     .height(55.dp),
                 contentAlignment = Alignment.Center
             ) {
-                CofeeButton(
+                CoffeeButton(
                     modifier = modifier.fillMaxSize(),
                     isEnabled = uiState.loading.not(),
                     buttonTitle = stringResource(id = R.string.label_done),
@@ -160,7 +160,7 @@ fun ForgotPasswordScreen(
 @Preview
 @Composable
 private fun ForgotPasswordScreenPreview() {
-    CofeeShopTheme {
+    CoffeeShopTheme {
         ForgotPasswordScreen(
             modifier = Modifier.fillMaxSize(),
             viewModel = hiltViewModel(),

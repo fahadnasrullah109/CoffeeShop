@@ -13,17 +13,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.coffee.shop.theme.CofeeShopTheme
+import com.coffee.shop.theme.CoffeeShopTheme
 import com.coffee.shop.theme.soraFamily
 
 @Composable
-fun CofeeButton(
+fun CoffeeButton(
     modifier: Modifier = Modifier, buttonTitle: String, onTap: () -> Unit, isEnabled: Boolean = true
 ) {
     Button(
         enabled = isEnabled,
         onClick = onTap,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         shape = RoundedCornerShape(corner = CornerSize(12.dp))
     ) {
         Text(
@@ -40,9 +40,9 @@ fun CofeeButton(
 
 @Preview
 @Composable
-private fun CofeeButtonPreview() {
-    CofeeShopTheme {
-        CofeeButton(
+private fun CoffeeButtonPreview() {
+    CoffeeShopTheme {
+        CoffeeButton(
             buttonTitle = "GetStarted",
             onTap = {},
         )

@@ -14,5 +14,9 @@ data class LoginResponse(
     @SerializedName("lastName")
     val lastName: String?,
     @SerializedName("email")
-    val email: String?
+    val email: String?,
+    @SerializedName("profilePicture")
+    val profilePicture: String?,
+    @SerializedName("location")
+    val location: String?
 )

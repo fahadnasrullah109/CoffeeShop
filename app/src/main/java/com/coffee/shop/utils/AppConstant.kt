@@ -7,4 +7,6 @@ object AppConstant {
     const val validUsernameLength = 3
     const val validOTPLength = 4
     const val BASE_URL: String = BuildConfig.BASE_URL
+    val GET_IMAGES_URL = "${BASE_URL}images/"
+    val GET_HOME_DATA_URL = "${BASE_URL}home.json"
 }

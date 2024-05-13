@@ -1,6 +1,7 @@
 package com.coffee.shop.presentation.dashboard
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,7 +31,8 @@ import com.coffee.shop.presentation.favorites.FavoritesScreen
 import com.coffee.shop.presentation.home.HomeScreen
 import com.coffee.shop.presentation.notifications.NotificationsScreen
 import com.coffee.shop.presentation.orders.OrdersScreen
-import com.coffee.shop.theme.CofeeShopTheme
+import com.coffee.shop.theme.CoffeeShopTheme
+import com.coffee.shop.theme.textHomeLocationColor
 
 @Composable
 fun DashboardScreen(modifier: Modifier = Modifier) {
@@ -52,7 +54,7 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
                     NavigationBarItem(
                         selected = false,
                         icon = {
-                            if(index == navigationSelectedItem) {
+                            if (index == navigationSelectedItem) {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     Image(
                                         painter = painterResource(id = navigationItem.icon),
@@ -93,7 +95,11 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable(DashboardBottomNavigationDestinations.Home.route) {
-                HomeScreen()
+                HomeScreen(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = textHomeLocationColor)
+                ) {}
             }
             composable(DashboardBottomNavigationDestinations.Favourites.route) {
                 FavoritesScreen()
@@ -111,7 +117,7 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun DashboardScreenPreview() {
-    CofeeShopTheme {
+    CoffeeShopTheme {
         DashboardScreen(modifier = Modifier.fillMaxSize())
     }
 }

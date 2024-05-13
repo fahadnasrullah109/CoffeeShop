@@ -62,3 +62,8 @@ val inversePrimaryDark = Color(0xFF8C4F27)
 
 val textGrayColor = Color(0xFFA9A9A9)
 val textTitleColor = Color(0xFF2F2D2C)
+val textHomeGrayColor = Color(0xFFB7B7B7)
+val textHomeLocationColor = Color(0xFFDDDDDD)
+val homeBlackBgColor = Color(0xFF131313)
+val textSearchPlaceholderColor = Color(0xFF989898)
+val textTabUnselectedColor = Color(0xFF2F4B4E)
