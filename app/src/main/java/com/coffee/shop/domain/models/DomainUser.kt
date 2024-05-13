@@ -5,5 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class DomainUser(
-    val userId: String, val name: String
+    val name: String,
+    val profilePicture: String,
+    val location: String,
 ) : Parcelable

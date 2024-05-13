@@ -21,6 +21,7 @@ serialization = "1.6.0"
 serializationPlugin = "1.9.23"
 materialIcons = "1.6.7"
 otp = "1.0.8"
+coil = "2.6.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,6 +53,7 @@ datastore = { group = "androidx.datastore", name = "datastore-preferences", vers
 serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 material-icons = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIcons" }
 otp = { group = "com.github.composeuisuite", name = "ohteepee", version.ref = "otp" }
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

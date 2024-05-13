@@ -26,7 +26,7 @@ android {
 
     buildTypes {
         release {
-            buildConfigField("String", "BASE_URL", "\"https://www.example.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://fahadnasrullah109.github.io/cofeeshop/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -34,7 +34,7 @@ android {
             )
         }
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://www.example.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://fahadnasrullah109.github.io/cofeeshop/\"")
         }
     }
     compileOptions {
@@ -97,6 +97,9 @@ dependencies {
 
     // OTP
     implementation(libs.otp)
+
+    // Coil
+    implementation(libs.coil)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
