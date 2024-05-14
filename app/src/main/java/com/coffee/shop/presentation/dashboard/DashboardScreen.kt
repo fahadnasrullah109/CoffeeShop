@@ -26,16 +26,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.cofee.shop.R
+import com.coffee.shop.domain.models.DomainCoffee
 import com.coffee.shop.navigation.DashboardBottomNavigationDestinations
 import com.coffee.shop.presentation.favorites.FavoritesScreen
 import com.coffee.shop.presentation.home.HomeScreen
 import com.coffee.shop.presentation.notifications.NotificationsScreen
 import com.coffee.shop.presentation.orders.OrdersScreen
 import com.coffee.shop.theme.CoffeeShopTheme
-import com.coffee.shop.theme.textHomeLocationColor
+import com.coffee.shop.theme.appBgColor
 
 @Composable
-fun DashboardScreen(modifier: Modifier = Modifier) {
+fun DashboardScreen(modifier: Modifier = Modifier, onCoffeeSelected: (DomainCoffee) -> Unit) {
     val bottomNavigationItems = listOf(
         DashboardBottomNavigationDestinations.Home,
         DashboardBottomNavigationDestinations.Favourites,
@@ -98,8 +99,9 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
                 HomeScreen(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(color = textHomeLocationColor)
-                ) {}
+                        .background(color = appBgColor),
+                    onCoffeeSelected = onCoffeeSelected
+                )
             }
             composable(DashboardBottomNavigationDestinations.Favourites.route) {
                 FavoritesScreen()
@@ -118,6 +120,6 @@ fun DashboardScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun DashboardScreenPreview() {
     CoffeeShopTheme {
-        DashboardScreen(modifier = Modifier.fillMaxSize())
+        DashboardScreen(modifier = Modifier.fillMaxSize(), onCoffeeSelected = {})
     }
 }
