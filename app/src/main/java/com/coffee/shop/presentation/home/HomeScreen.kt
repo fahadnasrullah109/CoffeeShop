@@ -358,8 +358,8 @@ private fun CoffeeTabs(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(id = R.string.label_empty_coffees),
-                style = TextStyle(color = Color.Black, fontSize = 16.sp),
+                text = stringResource(id = R.string.label_no_data),
+                style = TextStyle(color = textHomeGrayColor, fontSize = 15.sp),
                 fontFamily = soraFamily,
             )
         }

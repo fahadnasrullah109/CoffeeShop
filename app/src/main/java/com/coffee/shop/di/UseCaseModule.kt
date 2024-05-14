@@ -6,6 +6,7 @@ import com.coffee.shop.domain.usecases.EmailValidationUseCase
 import com.coffee.shop.domain.usecases.ForgotPasswordUseCase
 import com.coffee.shop.domain.usecases.GetLoggedInUserUseCase
 import com.coffee.shop.domain.usecases.HomeDataLoadUseCase
+import com.coffee.shop.domain.usecases.LoadOrdersUseCase
 import com.coffee.shop.domain.usecases.LoginUseCase
 import com.coffee.shop.domain.usecases.LogoutUseCase
 import com.coffee.shop.domain.usecases.MarkIntroductionShownUseCase
@@ -84,6 +85,11 @@ class UseCaseModule {
     @Provides
     fun provideHomeDataLoadUseCase(repository: IRepository) =
         HomeDataLoadUseCase(repository, Dispatchers.IO)
+
+    @ViewModelScoped
+    @Provides
+    fun provideLoadOrdersUseCase(repository: IRepository) =
+        LoadOrdersUseCase(repository, Dispatchers.IO)
 
     @ViewModelScoped
     @Provides
