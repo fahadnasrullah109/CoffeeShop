@@ -7,6 +7,7 @@ import com.coffee.shop.data.data
 import com.coffee.shop.data.failed
 import com.coffee.shop.data.local.UserDao
 import com.coffee.shop.data.mappers.HomeDataMapper
+import com.coffee.shop.data.mappers.OrderMapper
 import com.coffee.shop.data.mappers.UserMapper
 import com.coffee.shop.data.models.db.User
 import com.coffee.shop.data.models.response.LoginResponse
@@ -14,6 +15,7 @@ import com.coffee.shop.data.remote.NetworkApiService
 import com.coffee.shop.data.safeApiCall
 import com.coffee.shop.data.succeeded
 import com.coffee.shop.domain.models.DomainHomeData
+import com.coffee.shop.domain.models.DomainOrder
 import com.coffee.shop.domain.models.DomainUser
 import com.coffee.shop.domain.repo.IRepository
 import com.coffee.shop.preferences.DatastorePreferences
@@ -38,6 +40,7 @@ class RepositoryImpl(
 
     private val userMapper by lazy { UserMapper() }
     private val homeDataMapper by lazy { HomeDataMapper() }
+    private val orderMapper by lazy { OrderMapper() }
     override fun shouldShowIntroduction(): Flow<DataResource<Boolean>> = flow {
         val isShown = preferences.isIntroductionPresented.firstOrNull()
         isShown?.let {
@@ -123,12 +126,55 @@ class RepositoryImpl(
             emit(DataResource.Loading)
             val response = safeApiCall {
                 apiService.getHomeData(
-                    url = AppConstant.GET_HOME_DATA_URL)
+                    url = AppConstant.GET_HOME_DATA_URL
+                )
             }
             if (response.succeeded()) {
                 val homeData = response.data?.body()
                 homeData?.let { data ->
                     emit(DataResource.Success(homeDataMapper.mapToDomain(data)))
+                } ?: run {
+                    emit(
+                        DataResource.Error<Any>(
+                            exception = RuntimeException(
+                                context.getString(R.string.generic_error)
+                            )
+                        )
+                    )
+                }
+            }
+            if (response.failed()) {
+                emit(
+                    DataResource.Error<Any>(
+                        exception = RuntimeException(
+                            (response as DataResource.Error<*>).exception.message
+                        )
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            emit(
+                DataResource.Error<Any>(
+                    exception = RuntimeException(
+                        e.message ?: context.getString(R.string.generic_error)
+                    )
+                )
+            )
+        }
+    }.flowOn(dispatcher)
+
+    override fun loadOrdersHistory(): Flow<DataResource<List<DomainOrder>>> = flow {
+        try {
+            emit(DataResource.Loading)
+            val response = safeApiCall {
+                apiService.getOrders(
+                    url = AppConstant.GET_ORDERS_HISTORY_URL
+                )
+            }
+            if (response.succeeded()) {
+                val orders = response.data?.body()
+                orders?.let { data ->
+                    emit(DataResource.Success(data.map { orderMapper.mapToDomain(it) }))
                 } ?: run {
                     emit(
                         DataResource.Error<Any>(

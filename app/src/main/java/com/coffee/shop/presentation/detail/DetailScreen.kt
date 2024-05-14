@@ -19,11 +19,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -59,37 +62,37 @@ import com.coffee.shop.theme.textTitleColor
 import com.coffee.shop.utils.AppConstant
 import com.coffee.shop.utils.getDummyDomainCoffee
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(modifier: Modifier = Modifier, coffee: DomainCoffee, onBack: () -> Unit) {
     var selectedSize by remember {
         mutableIntStateOf(0)
     }
     Scaffold(modifier = modifier, containerColor = appBgColor, topBar = {
-        Row(
-            modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onBack) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null
-                )
-            }
-            Spacer(modifier = Modifier.width(16.dp))
+        TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color.White,
+        ), title = {
             Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
+                modifier = Modifier.fillMaxWidth(),
                 fontWeight = FontWeight.SemiBold,
                 text = stringResource(id = R.string.label_detail),
                 style = TextStyle(color = textTitleColor, fontSize = 18.sp),
                 fontFamily = soraFamily
             )
+        }, navigationIcon = {
+            IconButton(onClick = onBack) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null
+                )
+            }
+        }, actions = {
             IconButton(onClick = {}) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_heart),
                     contentDescription = null
                 )
             }
-        }
+        })
     }) { contentPadding ->
         Column(
             modifier = Modifier
@@ -104,7 +107,7 @@ fun DetailScreen(modifier: Modifier = Modifier, coffee: DomainCoffee, onBack: ()
                 coffee = coffee,
                 selectedSize = selectedSize
             ) {
-                if(selectedSize != it) {
+                if (selectedSize != it) {
                     selectedSize = it
                 }
             }
@@ -299,7 +302,8 @@ private fun BuyNowRow(modifier: Modifier, coffee: DomainCoffee, selectedSize: In
 @Composable
 private fun DetailScreenPreview() {
     CoffeeShopTheme {
-        DetailScreen(modifier = Modifier.fillMaxSize(),
+        DetailScreen(
+            modifier = Modifier.fillMaxSize(),
             coffee = getDummyDomainCoffee(),
             onBack = {})
     }

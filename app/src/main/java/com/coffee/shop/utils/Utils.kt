@@ -2,6 +2,7 @@ package com.coffee.shop.utils
 
 import com.coffee.shop.data.models.response.LoginResponse
 import com.coffee.shop.domain.models.DomainCoffee
+import com.coffee.shop.domain.models.DomainOrder
 import java.util.UUID
 
 fun getRandomUUID() = UUID.randomUUID().toString()
@@ -24,5 +25,15 @@ fun getDummyDomainCoffee() = DomainCoffee(
     priceMedium = 6.0,
     priceLarge = 7.0,
     rating = 4.5,
+    image = "image.png"
+)
+
+fun getDummyDomainOrder() = DomainOrder(
+    title = "dummyTitle",
+    description = "dummyDescription",
+    price = 5.0,
+    quantity = 6,
+    rating = 4.5,
+    date = "02/02/2024",
     image = "image.png"
 )

@@ -107,7 +107,7 @@ fun DashboardScreen(modifier: Modifier = Modifier, onCoffeeSelected: (DomainCoff
                 FavoritesScreen()
             }
             composable(DashboardBottomNavigationDestinations.Orders.route) {
-                OrdersScreen()
+                OrdersScreen(modifier = Modifier.fillMaxSize())
             }
             composable(DashboardBottomNavigationDestinations.Notifications.route) {
                 NotificationsScreen()
