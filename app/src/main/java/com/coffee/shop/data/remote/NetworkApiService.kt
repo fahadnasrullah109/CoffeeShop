@@ -1,6 +1,7 @@
 package com.coffee.shop.data.remote
 
 import com.coffee.shop.data.models.response.HomeResponse
+import com.coffee.shop.data.models.response.Notification
 import com.coffee.shop.data.models.response.Order
 import retrofit2.Response
 import retrofit2.http.GET
@@ -12,4 +13,7 @@ interface NetworkApiService {
 
     @GET
     suspend fun getOrders(@Url url: String): Response<List<Order>>
+
+    @GET
+    suspend fun getNotifications(@Url url: String): Response<List<Notification>>
 }

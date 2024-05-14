@@ -2,6 +2,7 @@ package com.coffee.shop.utils
 
 import com.coffee.shop.data.models.response.LoginResponse
 import com.coffee.shop.domain.models.DomainCoffee
+import com.coffee.shop.domain.models.DomainNotification
 import com.coffee.shop.domain.models.DomainOrder
 import java.util.UUID
 
@@ -36,4 +37,11 @@ fun getDummyDomainOrder() = DomainOrder(
     rating = 4.5,
     date = "02/02/2024",
     image = "image.png"
+)
+
+fun getDummyDomainNotification() = DomainNotification(
+    type = "dummyType",
+    title = "dummyTitle",
+    message = "Introducing our latest creation: the Caramel Macchiato! Try it today and treat yourself to a burst of flavor.",
+    date = "22/12/2024"
 )
