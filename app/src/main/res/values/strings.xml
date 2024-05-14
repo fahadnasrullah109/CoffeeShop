@@ -51,5 +51,9 @@
     <string name="label_search_cofee">Search coffee</string>
     <string name="label_promo_goes_here">Promo goes here</string>
     <string name="label_empty_coffees">No Cofees found to show.</string>
+    <string name="label_detail">Detail</string>
+    <string name="label_price">Price</string>
+    <string name="label_buy_now">Buy Now</string>
+    <string name="label_description">Description</string>
     <string name="generic_error">Something went wrong, please try again later.</string>
 </resources>

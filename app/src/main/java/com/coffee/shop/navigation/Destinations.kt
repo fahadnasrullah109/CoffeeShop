@@ -8,7 +8,5 @@ sealed class Destinations(val route: String) {
     data object ForgotPassword : Destinations("forgot-password")
     data object Verification : Destinations("verification")
     data object Dashboard : Destinations("dashboard")
-    data object Home : Destinations("home")
-    data object Favourites : Destinations("favourites")
-    data object Orders : Destinations("orders")
+    data object Detail : Destinations("detail/{coffee}")
 }

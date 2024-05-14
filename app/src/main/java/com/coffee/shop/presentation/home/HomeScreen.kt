@@ -62,6 +62,7 @@ import com.coffee.shop.domain.models.DomainCoffee
 import com.coffee.shop.domain.models.DomainCoffeeCategory
 import com.coffee.shop.domain.models.DomainUser
 import com.coffee.shop.theme.CoffeeShopTheme
+import com.coffee.shop.theme.appBgColor
 import com.coffee.shop.theme.homeBlackBgColor
 import com.coffee.shop.theme.soraFamily
 import com.coffee.shop.theme.textHomeGrayColor
@@ -328,7 +329,7 @@ private fun CoffeeTabs(
         val tabs = category.map { it.category }
         var selectedTabIndex by remember { mutableIntStateOf(0) }
         Column(modifier = modifier) {
-            ScrollableTabRow(containerColor = textHomeLocationColor,
+            ScrollableTabRow(containerColor = appBgColor,
                 selectedTabIndex = selectedTabIndex,
                 edgePadding = 16.dp,
                 indicator = {}) {
@@ -376,18 +377,28 @@ private fun CoffeeGridView(
         columns = GridCells.Fixed(count = 2)
     ) {
         items(items = data, key = {
-            "${it.title}${it.price}"
+            "${it.title}${it.priceSmall}"
         }) {
-            CoffeeItem(modifier = Modifier.fillMaxSize(), coffee = it)
+            CoffeeItem(
+                modifier = Modifier.fillMaxSize(),
+                coffee = it,
+                onCoffeeSelected = onCoffeeSelected
+            )
         }
     }
 }
 
 
 @Composable
-private fun CoffeeItem(modifier: Modifier, coffee: DomainCoffee) {
+private fun CoffeeItem(
+    modifier: Modifier,
+    coffee: DomainCoffee,
+    onCoffeeSelected: (DomainCoffee) -> Unit
+) {
     Card(
-        modifier = modifier, colors = CardDefaults.cardColors(
+        modifier = modifier.clickable {
+            onCoffeeSelected.invoke(coffee)
+        }, colors = CardDefaults.cardColors(
             containerColor = Color.White
         )
     ) {
@@ -431,7 +442,7 @@ private fun CoffeeItem(modifier: Modifier, coffee: DomainCoffee) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
-                    text = "$ ${coffee.price}",
+                    text = "$ ${coffee.priceSmall}",
                     style = TextStyle(color = textTitleColor, fontSize = 18.sp),
                     fontFamily = soraFamily,
                     fontWeight = FontWeight.SemiBold
