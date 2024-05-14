@@ -59,4 +59,5 @@
     <string name="label_no_data">No data available to show.</string>
     <string name="label_order_history">Orders History</string>
     <string name="label_reorder">Reorder</string>
+    <string name="label_notifications">Notifications</string>
 </resources>
