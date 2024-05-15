@@ -65,4 +65,5 @@
     <string name="toast_favourite_success">Successfully added to Favourites.</string>
     <string name="toast_un_favourite_success">Successfully removed from Favourites.</string>
     <string name="label_favourites">Favourites</string>
+    <string name="label_empty_favourites">No Favourites available, try add them first.</string>
 </resources>

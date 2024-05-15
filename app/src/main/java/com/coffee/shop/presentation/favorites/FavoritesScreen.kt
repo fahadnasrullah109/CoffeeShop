@@ -31,10 +31,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.cofee.shop.R
+import com.coffee.shop.components.ComposableLifecycle
 import com.coffee.shop.components.EmptyView
 import com.coffee.shop.components.Loading
 import com.coffee.shop.domain.models.DomainCoffee
@@ -54,6 +56,15 @@ fun FavoritesScreen(
     viewModel: FavouritesViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    ComposableLifecycle { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_START -> {
+                viewModel.onEvent(FavouritesUIEvents.LoadData)
+            }
+
+            else -> {}
+        }
+    }
     Scaffold(modifier = modifier, containerColor = appBgColor, topBar = {
         TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.White,
@@ -75,13 +86,22 @@ fun FavoritesScreen(
             )
         } else {
             uiState.data?.let { favourites ->
-                CoffeeGridView(
-                    modifier = Modifier
-                        .padding(contentPadding)
-                        .padding(vertical = 16.dp),
-                    data = favourites,
-                    onCoffeeSelected = onCoffeeSelected
-                )
+                if (favourites.isEmpty()) {
+                    EmptyView(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(contentPadding),
+                        message = stringResource(id = R.string.label_empty_favourites)
+                    )
+                } else {
+                    CoffeeGridView(
+                        modifier = Modifier
+                            .padding(contentPadding)
+                            .padding(vertical = 16.dp),
+                        data = favourites,
+                        onCoffeeSelected = onCoffeeSelected
+                    )
+                }
             } ?: run {
                 EmptyView(
                     modifier = Modifier

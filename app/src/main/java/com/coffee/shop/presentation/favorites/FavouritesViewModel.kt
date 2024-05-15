@@ -19,8 +19,10 @@ class FavouritesViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(FavouritesUiState())
     val uiState = _uiState.asStateFlow()
 
-    init {
-        loadFavourites()
+    fun onEvent(event: FavouritesUIEvents)  = when(event) {
+        is FavouritesUIEvents.LoadData -> {
+            loadFavourites()
+        }
     }
 
     private fun loadFavourites() {

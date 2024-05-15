@@ -17,14 +17,14 @@ import com.coffee.shop.theme.soraFamily
 import com.coffee.shop.theme.textHomeGrayColor
 
 @Composable
-fun EmptyView(modifier: Modifier = Modifier) {
+fun EmptyView(modifier: Modifier = Modifier, message: String? = null) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(id = R.string.label_no_data),
+            text = message ?: stringResource(id = R.string.label_no_data),
             style = TextStyle(color = textHomeGrayColor, fontSize = 15.sp),
             fontFamily = soraFamily,
         )
