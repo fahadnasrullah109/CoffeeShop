@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -375,11 +375,13 @@ private fun CoffeeGridView(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         columns = GridCells.Fixed(count = 2)
     ) {
-        items(items = data, key = {
-            "${it.title}${it.priceSmall}"
-        }) {
+        itemsIndexed(items = data, key = { index, coffee ->
+            "${coffee.title}${coffee.priceSmall}$index"
+        }) { _, coffee ->
             CoffeeItem(
-                modifier = Modifier.fillMaxSize(), coffee = it, onCoffeeSelected = onCoffeeSelected
+                modifier = Modifier.fillMaxSize(),
+                coffee = coffee,
+                onCoffeeSelected = onCoffeeSelected
             )
         }
     }
