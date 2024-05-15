@@ -5,9 +5,13 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class DomainCoffee(
+    val id: String,
     val title: String,
     val description: String,
-    val price: Double,
+    val detail: String,
+    val priceSmall: Double,
+    val priceMedium: Double,
+    val priceLarge: Double,
     val rating: Double,
-    val image: String,
+    val image: String
 ) : Parcelable

@@ -6,14 +6,22 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Coffee(
+    @SerializedName("id")
+    val id: String,
     @SerializedName("title")
     val title: String,
     @SerializedName("description")
     val description: String,
-    @SerializedName("price")
-    val price: Double,
+    @SerializedName("price_small")
+    val priceSmall: Double,
+    @SerializedName("price_medium")
+    val priceMedium: Double,
+    @SerializedName("price_large")
+    val priceLarge: Double,
     @SerializedName("rating")
     val rating: Double,
+    @SerializedName("detail")
+    val detail: String,
     @SerializedName("image")
     val image: String,
 ) : Parcelable

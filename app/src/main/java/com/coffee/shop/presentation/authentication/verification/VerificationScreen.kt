@@ -108,7 +108,7 @@ fun VerificationScreen(
 
             OhTeePeeInput(
                 value = uiState.otp,
-                onValueChange = { newValue, isValid ->
+                onValueChange = { newValue, _ ->
                     viewModel.onEvent(VerificationUIEvents.OnOTPChanged(newValue))
                 },
                 configurations = OhTeePeeConfigurations.withDefaults(

@@ -2,16 +2,22 @@ package com.coffee.shop.di
 
 import com.coffee.shop.domain.repo.IRepository
 import com.coffee.shop.domain.usecases.ConfirmPasswordValidationUseCase
+import com.coffee.shop.domain.usecases.DeleteFavouriteUseCase
 import com.coffee.shop.domain.usecases.EmailValidationUseCase
 import com.coffee.shop.domain.usecases.ForgotPasswordUseCase
 import com.coffee.shop.domain.usecases.GetLoggedInUserUseCase
 import com.coffee.shop.domain.usecases.HomeDataLoadUseCase
+import com.coffee.shop.domain.usecases.IsFavouriteUseCase
+import com.coffee.shop.domain.usecases.LoadFavouritesUseCase
+import com.coffee.shop.domain.usecases.LoadNotificationsUseCase
+import com.coffee.shop.domain.usecases.LoadOrdersUseCase
 import com.coffee.shop.domain.usecases.LoginUseCase
 import com.coffee.shop.domain.usecases.LogoutUseCase
 import com.coffee.shop.domain.usecases.MarkIntroductionShownUseCase
 import com.coffee.shop.domain.usecases.OTPValidationUseCase
 import com.coffee.shop.domain.usecases.PasswordValidationUseCase
 import com.coffee.shop.domain.usecases.RegisterUseCase
+import com.coffee.shop.domain.usecases.SaveFavouriteUseCase
 import com.coffee.shop.domain.usecases.ShowIntroductionDecisionUseCase
 import com.coffee.shop.domain.usecases.UsernameValidationUseCase
 import com.coffee.shop.domain.usecases.VerifyOTPUseCase
@@ -84,6 +90,36 @@ class UseCaseModule {
     @Provides
     fun provideHomeDataLoadUseCase(repository: IRepository) =
         HomeDataLoadUseCase(repository, Dispatchers.IO)
+
+    @ViewModelScoped
+    @Provides
+    fun provideLoadOrdersUseCase(repository: IRepository) =
+        LoadOrdersUseCase(repository, Dispatchers.IO)
+
+    @ViewModelScoped
+    @Provides
+    fun provideLoadNotificationsUseCase(repository: IRepository) =
+        LoadNotificationsUseCase(repository, Dispatchers.IO)
+
+    @ViewModelScoped
+    @Provides
+    fun provideSaveFavouriteUseCase(repository: IRepository) =
+        SaveFavouriteUseCase(repository, Dispatchers.IO)
+
+    @ViewModelScoped
+    @Provides
+    fun provideDeleteFavouriteUseCase(repository: IRepository) =
+        DeleteFavouriteUseCase(repository, Dispatchers.IO)
+
+    @ViewModelScoped
+    @Provides
+    fun provideIsFavouriteUseCase(repository: IRepository) =
+        IsFavouriteUseCase(repository, Dispatchers.IO)
+
+    @ViewModelScoped
+    @Provides
+    fun provideLoadFavouritesUseCase(repository: IRepository) =
+        LoadFavouritesUseCase(repository, Dispatchers.IO)
 
     @ViewModelScoped
     @Provides

@@ -62,6 +62,7 @@ import com.coffee.shop.domain.models.DomainCoffee
 import com.coffee.shop.domain.models.DomainCoffeeCategory
 import com.coffee.shop.domain.models.DomainUser
 import com.coffee.shop.theme.CoffeeShopTheme
+import com.coffee.shop.theme.appBgColor
 import com.coffee.shop.theme.homeBlackBgColor
 import com.coffee.shop.theme.soraFamily
 import com.coffee.shop.theme.textHomeGrayColor
@@ -241,8 +242,7 @@ private fun SearchItem(
                         )
                         .clickable {
 
-                        },
-                    contentAlignment = Alignment.Center
+                        }, contentAlignment = Alignment.Center
                 ) {
                     Image(
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_furnitur),
@@ -328,7 +328,7 @@ private fun CoffeeTabs(
         val tabs = category.map { it.category }
         var selectedTabIndex by remember { mutableIntStateOf(0) }
         Column(modifier = modifier) {
-            ScrollableTabRow(containerColor = textHomeLocationColor,
+            ScrollableTabRow(containerColor = appBgColor,
                 selectedTabIndex = selectedTabIndex,
                 edgePadding = 16.dp,
                 indicator = {}) {
@@ -357,8 +357,8 @@ private fun CoffeeTabs(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(id = R.string.label_empty_coffees),
-                style = TextStyle(color = Color.Black, fontSize = 16.sp),
+                text = stringResource(id = R.string.label_no_data),
+                style = TextStyle(color = textHomeGrayColor, fontSize = 15.sp),
                 fontFamily = soraFamily,
             )
         }
@@ -376,18 +376,24 @@ private fun CoffeeGridView(
         columns = GridCells.Fixed(count = 2)
     ) {
         items(items = data, key = {
-            "${it.title}${it.price}"
+            "${it.title}${it.priceSmall}"
         }) {
-            CoffeeItem(modifier = Modifier.fillMaxSize(), coffee = it)
+            CoffeeItem(
+                modifier = Modifier.fillMaxSize(), coffee = it, onCoffeeSelected = onCoffeeSelected
+            )
         }
     }
 }
 
 
 @Composable
-private fun CoffeeItem(modifier: Modifier, coffee: DomainCoffee) {
+private fun CoffeeItem(
+    modifier: Modifier, coffee: DomainCoffee, onCoffeeSelected: (DomainCoffee) -> Unit
+) {
     Card(
-        modifier = modifier, colors = CardDefaults.cardColors(
+        onClick = {
+            onCoffeeSelected.invoke(coffee)
+        }, modifier = modifier, colors = CardDefaults.cardColors(
             containerColor = Color.White
         )
     ) {
@@ -431,7 +437,7 @@ private fun CoffeeItem(modifier: Modifier, coffee: DomainCoffee) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
-                    text = "$ ${coffee.price}",
+                    text = "$ ${coffee.priceSmall}",
                     style = TextStyle(color = textTitleColor, fontSize = 18.sp),
                     fontFamily = soraFamily,
                     fontWeight = FontWeight.SemiBold
@@ -445,8 +451,7 @@ private fun CoffeeItem(modifier: Modifier, coffee: DomainCoffee) {
                         )
                         .clickable {
 
-                        },
-                    contentAlignment = Alignment.Center
+                        }, contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Add,

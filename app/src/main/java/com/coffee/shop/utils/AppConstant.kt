@@ -9,4 +9,6 @@ object AppConstant {
     const val BASE_URL: String = BuildConfig.BASE_URL
     val GET_IMAGES_URL = "${BASE_URL}images/"
     val GET_HOME_DATA_URL = "${BASE_URL}home.json"
+    val GET_ORDERS_HISTORY_URL = "${BASE_URL}orders.json"
+    val GET_NOTIFICATIONS_URL = "${BASE_URL}notifications.json"
 }

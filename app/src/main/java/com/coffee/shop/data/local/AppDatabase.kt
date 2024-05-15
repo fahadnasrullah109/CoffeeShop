@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.coffee.shop.data.local.AppDatabase.Companion.DATABASE_VERSION
+import com.coffee.shop.data.models.db.Coffee
 import com.coffee.shop.data.models.db.User
 
 @Database(
-    entities = [User::class],
+    entities = [User::class, Coffee::class],
     version = DATABASE_VERSION,
     exportSchema = false
 )
@@ -16,9 +17,11 @@ import com.coffee.shop.data.models.db.User
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
+    abstract fun coffeeDao(): CoffeeDao
+
     companion object {
 
-        private const val DB_NAME = "Cofee-Shop.db"
+        private const val DB_NAME = "Coffee-Shop.db"
         const val DATABASE_VERSION = 1
 
         // to void duplicate instances of DB
