@@ -30,4 +30,18 @@ class CoffeeMapper {
             rating = coffee.rating,
             image = coffee.image
         )
+
+    fun mapToDomain(coffee: com.coffee.shop.data.models.db.Coffee): DomainCoffee {
+        return DomainCoffee(
+            id = coffee.id,
+            title = coffee.title,
+            description = coffee.description,
+            detail = coffee.detail,
+            priceSmall = coffee.priceSmall,
+            priceMedium = coffee.priceMedium,
+            priceLarge = coffee.priceLarge,
+            rating = coffee.rating,
+            image = coffee.image
+        )
+    }
 }

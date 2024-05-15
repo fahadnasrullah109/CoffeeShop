@@ -304,6 +304,23 @@ class RepositoryImpl(
         }
     }.flowOn(dispatcher)
 
+
+    override fun loadFavourites(): Flow<DataResource<List<DomainCoffee>>> = flow {
+        try {
+            emit(DataResource.Loading)
+            val response = coffeeDao.getAllFavouriteCoffees()
+            emit(DataResource.Success(response.map { coffeeMapper.mapToDomain(it) }))
+        } catch (e: Exception) {
+            emit(
+                DataResource.Error<Any>(
+                    exception = RuntimeException(
+                        e.message ?: context.getString(R.string.generic_error)
+                    )
+                )
+            )
+        }
+    }.flowOn(dispatcher)
+
     companion object {
         private const val TAG = "Repository"
     }

@@ -25,4 +25,5 @@ interface IRepository {
     fun saveFavourite(coffee: DomainCoffee): Flow<DataResource<Boolean>>
     fun deleteFavourite(coffeeId: String): Flow<DataResource<Boolean>>
     fun isFavourite(coffeeId: String): Flow<DataResource<Boolean>>
+    fun loadFavourites(): Flow<DataResource<List<DomainCoffee>>>
 }

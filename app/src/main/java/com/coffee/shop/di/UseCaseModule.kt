@@ -8,6 +8,7 @@ import com.coffee.shop.domain.usecases.ForgotPasswordUseCase
 import com.coffee.shop.domain.usecases.GetLoggedInUserUseCase
 import com.coffee.shop.domain.usecases.HomeDataLoadUseCase
 import com.coffee.shop.domain.usecases.IsFavouriteUseCase
+import com.coffee.shop.domain.usecases.LoadFavouritesUseCase
 import com.coffee.shop.domain.usecases.LoadNotificationsUseCase
 import com.coffee.shop.domain.usecases.LoadOrdersUseCase
 import com.coffee.shop.domain.usecases.LoginUseCase
@@ -114,6 +115,11 @@ class UseCaseModule {
     @Provides
     fun provideIsFavouriteUseCase(repository: IRepository) =
         IsFavouriteUseCase(repository, Dispatchers.IO)
+
+    @ViewModelScoped
+    @Provides
+    fun provideLoadFavouritesUseCase(repository: IRepository) =
+        LoadFavouritesUseCase(repository, Dispatchers.IO)
 
     @ViewModelScoped
     @Provides
