@@ -71,4 +71,7 @@
     <string name="label_summary">Payment Summary</string>
     <string name="label_delivery_fee">Delivery fee</string>
     <string name="label_total_payment">Total Payment</string>
+    <string name="label_checkout">Checkout</string>
+    <string name="label_continue">Continue</string>
+    <string name="label_payment">Payment</string>
 </resources>

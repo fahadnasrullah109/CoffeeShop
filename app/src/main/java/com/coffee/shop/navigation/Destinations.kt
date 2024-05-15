@@ -10,4 +10,5 @@ sealed class Destinations(val route: String) {
     data object Dashboard : Destinations("dashboard")
     data object Detail : Destinations("detail/{coffee}")
     data object PlaceOrder : Destinations("place-order/{coffee}")
+    data object Checkout : Destinations("checkout/{order}")
 }

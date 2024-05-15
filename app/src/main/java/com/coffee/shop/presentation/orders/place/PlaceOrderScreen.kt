@@ -48,6 +48,7 @@ import coil.request.ImageRequest
 import com.cofee.shop.R
 import com.coffee.shop.components.CoffeeButton
 import com.coffee.shop.domain.models.DomainCoffee
+import com.coffee.shop.domain.models.DomainOrderForPlacement
 import com.coffee.shop.theme.CoffeeShopTheme
 import com.coffee.shop.theme.appBgColor
 import com.coffee.shop.theme.soraFamily
@@ -62,6 +63,7 @@ fun PlaceOrderScreen(
     modifier: Modifier = Modifier,
     coffee: DomainCoffee,
     onBack: () -> Unit,
+    onOrder: (DomainOrderForPlacement) -> Unit,
     viewModel: PlaceOrderViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -115,9 +117,17 @@ fun PlaceOrderScreen(
                         )
                     )
                 })
-            TotalRow(
-                modifier = Modifier.fillMaxWidth(), amount = "%.2f".format(uiState.totalAmount)
-            )
+            TotalRow(modifier = Modifier.fillMaxWidth(),
+                amount = "%.2f".format(uiState.totalAmount),
+                onOrder = {
+                    onOrder.invoke(
+                        DomainOrderForPlacement(
+                            orderPrice = coffee.priceSmall * uiState.selectedQuantity,
+                            shipping = uiState.deliveryCharges,
+                            totalPrice = uiState.totalAmount
+                        ),
+                    )
+                })
         }
     }
 }
@@ -295,7 +305,7 @@ private fun DetailContentPreview() {
 }
 
 @Composable
-private fun TotalRow(modifier: Modifier, amount: String) {
+private fun TotalRow(modifier: Modifier, amount: String, onOrder: () -> Unit) {
     Column(
         modifier = modifier
             .background(
@@ -318,7 +328,7 @@ private fun TotalRow(modifier: Modifier, amount: String) {
             .fillMaxWidth()
             .height(55.dp),
             buttonTitle = stringResource(id = R.string.label_order),
-            onTap = { })
+            onTap = onOrder)
     }
 }
 
@@ -326,6 +336,6 @@ private fun TotalRow(modifier: Modifier, amount: String) {
 @Composable
 private fun TotalRowPreview() {
     CoffeeShopTheme {
-        TotalRow(modifier = Modifier.fillMaxWidth(), amount = "50.3")
+        TotalRow(modifier = Modifier.fillMaxWidth(), amount = "50.3", onOrder = {})
     }
 }
