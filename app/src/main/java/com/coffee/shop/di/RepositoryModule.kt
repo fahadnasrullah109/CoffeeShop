@@ -1,6 +1,7 @@
 package com.coffee.shop.di
 
 import android.content.Context
+import com.coffee.shop.data.local.CoffeeDao
 import com.coffee.shop.data.local.UserDao
 import com.coffee.shop.data.remote.NetworkApiService
 import com.coffee.shop.domain.repo.IRepository
@@ -22,12 +23,14 @@ class RepositoryModule {
         @ApplicationContext context: Context,
         apiService: NetworkApiService,
         userDao: UserDao,
+        coffeeDao: CoffeeDao,
         preferences: DatastorePreferences
     ): IRepository {
         return RepositoryImpl(
             context,
             apiService,
             userDao,
+            coffeeDao,
             preferences,
             Dispatchers.IO
         )

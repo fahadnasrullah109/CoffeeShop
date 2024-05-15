@@ -23,4 +23,8 @@ class DatabaseModule {
     @Provides
     fun provideUserDao(roomDB: AppDatabase) = roomDB.userDao()
 
+    @Singleton
+    @Provides
+    fun provideCoffeeDao(roomDB: AppDatabase) = roomDB.coffeeDao()
+
 }

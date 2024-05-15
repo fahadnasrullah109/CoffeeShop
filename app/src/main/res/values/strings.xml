@@ -60,4 +60,8 @@
     <string name="label_order_history">Orders History</string>
     <string name="label_reorder">Reorder</string>
     <string name="label_notifications">Notifications</string>
+    <string name="favourite_error">Not able to save Favourite, please try again later.</string>
+    <string name="un_favourite_error">Not able to delete Favourite, please try again later.</string>
+    <string name="toast_favourite_success">Successfully added to Favourites.</string>
+    <string name="toast_un_favourite_success">Successfully removed from Favourites.</string>
 </resources>

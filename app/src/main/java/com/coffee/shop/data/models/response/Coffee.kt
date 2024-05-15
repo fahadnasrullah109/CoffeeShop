@@ -6,6 +6,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Coffee(
+    @SerializedName("id")
+    val id: String,
     @SerializedName("title")
     val title: String,
     @SerializedName("description")
