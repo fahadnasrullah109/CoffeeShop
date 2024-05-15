@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.coffee.shop.navigation.CofeeNavHost
+import com.coffee.shop.navigation.CoffeeNavHost
 import com.coffee.shop.theme.CoffeeShopTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CofeeNavHost(modifier = Modifier.fillMaxSize())
+                    CoffeeNavHost(modifier = Modifier.fillMaxSize())
                 }
             }
         }

@@ -58,6 +58,7 @@
     <string name="generic_error">Something went wrong, please try again later.</string>
     <string name="label_no_data">No data available to show.</string>
     <string name="label_order_history">Orders History</string>
+    <string name="label_order">Order</string>
     <string name="label_reorder">Reorder</string>
     <string name="label_notifications">Notifications</string>
     <string name="favourite_error">Not able to save Favourite, please try again later.</string>
@@ -66,4 +67,8 @@
     <string name="toast_un_favourite_success">Successfully removed from Favourites.</string>
     <string name="label_favourites">Favourites</string>
     <string name="label_empty_favourites">No Favourites available, try add them first.</string>
+    <string name="label_address">Address</string>
+    <string name="label_summary">Payment Summary</string>
+    <string name="label_delivery_fee">Delivery fee</string>
+    <string name="label_total_payment">Total Payment</string>
 </resources>

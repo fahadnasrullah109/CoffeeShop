@@ -94,7 +94,7 @@ fun OrdersScreen(modifier: Modifier, viewModel: OrdersViewModel = hiltViewModel(
                 ) {
                     itemsIndexed(items = orders, key = { index, order ->
                         "${order.title}$index}"
-                    }) { index, order ->
+                    }) { _, order ->
                         OrderItem(modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp), order = order, onReOrder = {

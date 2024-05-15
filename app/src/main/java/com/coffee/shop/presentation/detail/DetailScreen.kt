@@ -73,6 +73,7 @@ fun DetailScreen(
     modifier: Modifier = Modifier,
     coffee: DomainCoffee,
     onBack: () -> Unit,
+    onPlaceOrder: (DomainCoffee) -> Unit,
     viewModel: DetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -152,7 +153,10 @@ fun DetailScreen(
                 }
             }
             BuyNowRow(
-                modifier = Modifier.fillMaxWidth(), coffee = coffee, selectedSize = selectedSize
+                modifier = Modifier.fillMaxWidth(),
+                coffee = coffee,
+                selectedSize = selectedSize,
+                onPlaceOrder = onPlaceOrder
             )
         }
     }
@@ -293,7 +297,12 @@ private fun DetailContent(
 }
 
 @Composable
-private fun BuyNowRow(modifier: Modifier, coffee: DomainCoffee, selectedSize: Int) {
+private fun BuyNowRow(
+    modifier: Modifier,
+    coffee: DomainCoffee,
+    selectedSize: Int,
+    onPlaceOrder: (DomainCoffee) -> Unit
+) {
     Row(
         modifier = modifier.background(
             color = Color.White, shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
@@ -333,7 +342,9 @@ private fun BuyNowRow(modifier: Modifier, coffee: DomainCoffee, selectedSize: In
             .height(55.dp)
             .weight(.6f),
             buttonTitle = stringResource(id = R.string.label_buy_now),
-            onTap = { })
+            onTap = {
+                onPlaceOrder.invoke(coffee)
+            })
         Spacer(modifier = Modifier.width(20.dp))
     }
 }
@@ -342,10 +353,10 @@ private fun BuyNowRow(modifier: Modifier, coffee: DomainCoffee, selectedSize: In
 @Composable
 private fun DetailScreenPreview() {
     CoffeeShopTheme {
-        DetailScreen(
-            modifier = Modifier.fillMaxSize(),
+        DetailScreen(modifier = Modifier.fillMaxSize(),
             coffee = getDummyDomainCoffee(),
-            onBack = {})
+            onBack = {},
+            onPlaceOrder = {})
     }
 }
 
