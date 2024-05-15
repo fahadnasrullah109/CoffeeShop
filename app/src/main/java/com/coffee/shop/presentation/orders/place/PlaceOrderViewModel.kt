@@ -12,7 +12,7 @@ import javax.inject.Inject
 class PlaceOrderViewModel @Inject constructor(
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(PlaceOrdersUiState())
+    private val _uiState = MutableStateFlow(PlaceOrderUiState())
     val uiState = _uiState.asStateFlow()
 
     fun onEvent(event: PlaceOrderUIEvents) {

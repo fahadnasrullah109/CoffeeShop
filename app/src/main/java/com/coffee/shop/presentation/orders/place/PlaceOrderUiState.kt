@@ -1,6 +1,6 @@
 package com.coffee.shop.presentation.orders.place
 
-data class PlaceOrdersUiState(
+data class PlaceOrderUiState(
     val deliveryAddress: String = "House No. X, DHA Phase XXX, Lahore, Pakistan",
     val totalAmount: Double = 0.0,
     val selectedQuantity: Int = 1,
