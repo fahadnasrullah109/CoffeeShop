@@ -1,4 +1,4 @@
-package com.coffee.shop.presentation.orders
+package com.coffee.shop.presentation.orders.history
 
 import com.coffee.shop.domain.models.DomainOrder
 
