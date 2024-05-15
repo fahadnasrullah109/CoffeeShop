@@ -14,7 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,53 +43,46 @@ fun DashboardScreen(modifier: Modifier = Modifier, onCoffeeSelected: (DomainCoff
         DashboardBottomNavigationDestinations.Orders,
         DashboardBottomNavigationDestinations.Notifications
     )
-    var navigationSelectedItem by remember {
+    var navigationSelectedItem by rememberSaveable {
         mutableIntStateOf(0)
     }
     val navController = rememberNavController()
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        bottomBar = {
-            NavigationBar {
-                bottomNavigationItems.forEachIndexed { index, navigationItem ->
-                    NavigationBarItem(
-                        selected = false,
-                        icon = {
-                            if (index == navigationSelectedItem) {
-                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Image(
-                                        painter = painterResource(id = navigationItem.icon),
-                                        contentDescription = navigationItem.icon.toString()
-                                    )
-                                    Spacer(modifier = Modifier.height(4.dp))
-                                    Image(
-                                        painter = painterResource(id = R.drawable.ic_selected_nav),
-                                        contentDescription = null
-                                    )
+    Scaffold(modifier = modifier.fillMaxSize(), bottomBar = {
+        NavigationBar {
+            bottomNavigationItems.forEachIndexed { index, navigationItem ->
+                NavigationBarItem(selected = false, icon = {
+                    if (index == navigationSelectedItem) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Image(
+                                painter = painterResource(id = navigationItem.icon),
+                                contentDescription = navigationItem.icon.toString()
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_selected_nav),
+                                contentDescription = null
+                            )
 
-                                }
-                            } else {
-                                Icon(
-                                    painter = painterResource(id = navigationItem.icon),
-                                    contentDescription = navigationItem.icon.toString()
-                                )
-                            }
-                        },
-                        onClick = {
-                            navigationSelectedItem = index
-                            navController.navigate(navigationItem.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
                         }
-                    )
-                }
+                    } else {
+                        Icon(
+                            painter = painterResource(id = navigationItem.icon),
+                            contentDescription = navigationItem.icon.toString()
+                        )
+                    }
+                }, onClick = {
+                    navigationSelectedItem = index
+                    navController.navigate(navigationItem.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                })
             }
         }
-    ) { paddingValues ->
+    }) { paddingValues ->
         NavHost(
             navController = navController,
             startDestination = DashboardBottomNavigationDestinations.Home.route,
@@ -104,7 +97,10 @@ fun DashboardScreen(modifier: Modifier = Modifier, onCoffeeSelected: (DomainCoff
                 )
             }
             composable(DashboardBottomNavigationDestinations.Favourites.route) {
-                FavoritesScreen(modifier = Modifier.fillMaxSize())
+                FavoritesScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    onCoffeeSelected = onCoffeeSelected
+                )
             }
             composable(DashboardBottomNavigationDestinations.Orders.route) {
                 OrdersScreen(modifier = Modifier.fillMaxSize())

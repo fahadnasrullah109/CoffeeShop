@@ -48,7 +48,11 @@ import com.coffee.shop.utils.getDummyDomainCoffee
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoritesScreen(modifier: Modifier, viewModel: FavouritesViewModel = hiltViewModel()) {
+fun FavoritesScreen(
+    modifier: Modifier,
+    onCoffeeSelected: (DomainCoffee) -> Unit,
+    viewModel: FavouritesViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     Scaffold(modifier = modifier, containerColor = appBgColor, topBar = {
         TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
@@ -71,11 +75,13 @@ fun FavoritesScreen(modifier: Modifier, viewModel: FavouritesViewModel = hiltVie
             )
         } else {
             uiState.data?.let { favourites ->
-                CoffeeGridView(modifier = Modifier
-                    .padding(contentPadding)
-                    .padding(vertical = 16.dp),
+                CoffeeGridView(
+                    modifier = Modifier
+                        .padding(contentPadding)
+                        .padding(vertical = 16.dp),
                     data = favourites,
-                    onCoffeeSelected = {})
+                    onCoffeeSelected = onCoffeeSelected
+                )
             } ?: run {
                 EmptyView(
                     modifier = Modifier
@@ -116,8 +122,7 @@ private fun CoffeeItem(
     Card(
         onClick = {
             onCoffeeSelected.invoke(coffee)
-        },
-        modifier = modifier, colors = CardDefaults.cardColors(
+        }, modifier = modifier, colors = CardDefaults.cardColors(
             containerColor = Color.White
         )
     ) {
@@ -168,8 +173,7 @@ private fun CoffeeItem(
 @Composable
 private fun CoffeeItemPreview() {
     CoffeeShopTheme {
-        CoffeeItem(
-            modifier = Modifier.fillMaxSize(),
+        CoffeeItem(modifier = Modifier.fillMaxSize(),
             coffee = getDummyDomainCoffee(),
             onCoffeeSelected = {})
     }
