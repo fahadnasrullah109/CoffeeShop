@@ -85,7 +85,7 @@ fun DashboardScreen(modifier: Modifier = Modifier, onCoffeeSelected: (DomainCoff
     }) { paddingValues ->
         NavHost(
             navController = navController,
-            startDestination = DashboardBottomNavigationDestinations.Home.route,
+            startDestination = bottomNavigationItems[navigationSelectedItem].route,
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable(DashboardBottomNavigationDestinations.Home.route) {
