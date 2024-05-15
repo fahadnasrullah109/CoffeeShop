@@ -1,5 +1,7 @@
 package com.coffee.shop.presentation.detail
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -47,6 +50,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.cofee.shop.R
@@ -64,7 +69,34 @@ import com.coffee.shop.utils.getDummyDomainCoffee
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(modifier: Modifier = Modifier, coffee: DomainCoffee, onBack: () -> Unit) {
+fun DetailScreen(
+    modifier: Modifier = Modifier,
+    coffee: DomainCoffee,
+    onBack: () -> Unit,
+    viewModel: DetailViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context: Context = LocalContext.current
+    LaunchedEffect(key1 = Unit) {
+        viewModel.onEvent(DetailUIEvents.IsFavourite(coffee.id))
+    }
+    LaunchedEffect(key1 = uiState) {
+        if (uiState.favouriteEventSuccess) {
+            Toast.makeText(
+                context, context.getString(R.string.toast_favourite_success), Toast.LENGTH_SHORT
+            ).show()
+        } else if (uiState.unFavouriteEventSuccess) {
+            Toast.makeText(
+                context, context.getString(R.string.toast_un_favourite_success), Toast.LENGTH_SHORT
+            ).show()
+        }
+        uiState.error?.let {
+            Toast.makeText(
+                context, it, Toast.LENGTH_SHORT
+            ).show()
+        }
+        viewModel.onEvent(DetailUIEvents.Reset)
+    }
     var selectedSize by remember {
         mutableIntStateOf(0)
     }
@@ -86,9 +118,17 @@ fun DetailScreen(modifier: Modifier = Modifier, coffee: DomainCoffee, onBack: ()
                 )
             }
         }, actions = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+                viewModel.onEvent(
+                    if (uiState.isFavourite) {
+                        DetailUIEvents.OnUnFavouriteCoffee(coffee.id)
+                    } else {
+                        DetailUIEvents.OnFavouriteCoffee(coffee)
+                    }
+                )
+            }) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_heart),
+                    imageVector = ImageVector.vectorResource(id = if (uiState.isFavourite) R.drawable.ic_heart_selected else R.drawable.ic_heart),
                     contentDescription = null
                 )
             }

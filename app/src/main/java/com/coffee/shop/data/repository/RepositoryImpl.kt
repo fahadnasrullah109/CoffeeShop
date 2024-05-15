@@ -5,7 +5,9 @@ import com.cofee.shop.R
 import com.coffee.shop.data.DataResource
 import com.coffee.shop.data.data
 import com.coffee.shop.data.failed
+import com.coffee.shop.data.local.CoffeeDao
 import com.coffee.shop.data.local.UserDao
+import com.coffee.shop.data.mappers.CoffeeMapper
 import com.coffee.shop.data.mappers.HomeDataMapper
 import com.coffee.shop.data.mappers.NotificationMapper
 import com.coffee.shop.data.mappers.OrderMapper
@@ -15,6 +17,7 @@ import com.coffee.shop.data.models.response.LoginResponse
 import com.coffee.shop.data.remote.NetworkApiService
 import com.coffee.shop.data.safeApiCall
 import com.coffee.shop.data.succeeded
+import com.coffee.shop.domain.models.DomainCoffee
 import com.coffee.shop.domain.models.DomainHomeData
 import com.coffee.shop.domain.models.DomainNotification
 import com.coffee.shop.domain.models.DomainOrder
@@ -36,6 +39,7 @@ class RepositoryImpl(
     private val context: Context,
     private val apiService: NetworkApiService,
     private val userDao: UserDao,
+    private val coffeeDao: CoffeeDao,
     private val preferences: DatastorePreferences,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : IRepository {
@@ -44,6 +48,7 @@ class RepositoryImpl(
     private val homeDataMapper by lazy { HomeDataMapper() }
     private val orderMapper by lazy { OrderMapper() }
     private val notificationMapper by lazy { NotificationMapper() }
+    private val coffeeMapper by lazy { CoffeeMapper() }
     override fun shouldShowIntroduction(): Flow<DataResource<Boolean>> = flow {
         val isShown = preferences.isIntroductionPresented.firstOrNull()
         isShown?.let {
@@ -95,7 +100,8 @@ class RepositoryImpl(
                 userId = usr.ID ?: getRandomUUID(),
                 name = (usr.firstName ?: "firstname").plus(" ").plus(
                     usr.lastName ?: "lastname"
-                ), profilePicture = "https://ibb.co/T4YShT1",
+                ),
+                profilePicture = "https://ibb.co/T4YShT1",
                 location = "Lahore, Pakistan"
             )
         )
@@ -239,6 +245,71 @@ class RepositoryImpl(
                     )
                 )
             }
+        } catch (e: Exception) {
+            emit(
+                DataResource.Error<Any>(
+                    exception = RuntimeException(
+                        e.message ?: context.getString(R.string.generic_error)
+                    )
+                )
+            )
+        }
+    }.flowOn(dispatcher)
+
+    override fun saveFavourite(coffee: DomainCoffee): Flow<DataResource<Boolean>> = flow {
+        try {
+            val result = coffeeDao.insert(coffeeMapper.mapToDb(coffee))
+            emit(DataResource.Success(result > 0))
+        } catch (e: Exception) {
+            emit(
+                DataResource.Error<Any>(
+                    exception = RuntimeException(
+                        e.message ?: context.getString(R.string.favourite_error)
+                    )
+                )
+            )
+        }
+    }.flowOn(dispatcher)
+
+    override fun deleteFavourite(coffeeId: String): Flow<DataResource<Boolean>> = flow {
+        try {
+            coffeeDao.removeCoffeeById(coffeeId)
+            emit(DataResource.Success(true))
+        } catch (e: Exception) {
+            emit(
+                DataResource.Error<Any>(
+                    exception = RuntimeException(
+                        e.message ?: context.getString(R.string.un_favourite_error)
+                    )
+                )
+            )
+        }
+    }.flowOn(dispatcher)
+
+    override fun isFavourite(coffeeId: String): Flow<DataResource<Boolean>> = flow {
+        try {
+            coffeeDao.isFavourite(coffeeId)?.let {
+                emit(DataResource.Success(true))
+            } ?: run {
+                emit(DataResource.Success(false))
+            }
+        } catch (e: Exception) {
+            emit(
+                DataResource.Error<Any>(
+                    exception = RuntimeException(
+                        e.message ?: context.getString(R.string.generic_error)
+                    )
+                )
+            )
+        }
+    }.flowOn(dispatcher)
+
+
+    override fun loadFavourites(): Flow<DataResource<List<DomainCoffee>>> = flow {
+        try {
+            emit(DataResource.Loading)
+            val response = coffeeDao.getAllFavouriteCoffees()
+            emit(DataResource.Success(response.map { coffeeMapper.mapToDomain(it) }))
         } catch (e: Exception) {
             emit(
                 DataResource.Error<Any>(

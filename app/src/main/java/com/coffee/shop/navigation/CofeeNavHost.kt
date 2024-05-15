@@ -11,14 +11,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navDeepLink
+import com.coffee.shop.domain.models.DomainCoffee
 import com.coffee.shop.navigation.AppUri.uri
 import com.coffee.shop.presentation.authentication.forgotpassword.ForgotPasswordScreen
 import com.coffee.shop.presentation.authentication.login.LoginScreen
 import com.coffee.shop.presentation.authentication.register.RegisterScreen
 import com.coffee.shop.presentation.authentication.verification.VerificationScreen
 import com.coffee.shop.presentation.dashboard.DashboardScreen
+import com.coffee.shop.presentation.detail.DetailScreen
 import com.coffee.shop.presentation.introduction.IntroductionScreen
 import com.coffee.shop.presentation.splash.SplashScreen
+import com.google.gson.Gson
 
 object AppUri {
     const val uri = "https://cofeeshop.com"
@@ -41,7 +44,8 @@ fun CofeeNavHost(
         forgotPasswordGraph(navController, "$uri/${Destinations.ForgotPassword.route}")
         verificationGraph(navController, "$uri/${Destinations.Verification.route}")
         introductionGraph(navController, "$uri/${Destinations.Introduction.route}")
-        dashboardGraph("$uri/${Destinations.Dashboard.route}")
+        dashboardGraph(navController, "$uri/${Destinations.Dashboard.route}")
+        detailGraph(navController, "$uri/${Destinations.Detail.route}")
     }
 }
 
@@ -156,12 +160,31 @@ fun NavGraphBuilder.introductionGraph(navController: NavController, route: Strin
     }
 }
 
-fun NavGraphBuilder.dashboardGraph(route: String) {
+fun NavGraphBuilder.dashboardGraph(navController: NavController, route: String) {
     composable(
         route = route, deepLinks = listOf(navDeepLink { uriPattern = Destinations.Dashboard.route })
     ) {
-        DashboardScreen(
-            modifier = Modifier.fillMaxSize(),
-        )
+        DashboardScreen(modifier = Modifier.fillMaxSize(), onCoffeeSelected = { coffee ->
+            navController.navigate(
+                route = "$uri/${Destinations.Detail.route}".replace(
+                    oldValue = "{coffee}", newValue = Gson().toJson(coffee)
+                )
+            )
+        })
+    }
+}
+
+fun NavGraphBuilder.detailGraph(navController: NavController, route: String) {
+    composable(
+        route = route, deepLinks = listOf(navDeepLink { uriPattern = Destinations.Detail.route })
+    ) { entry ->
+        val coffee = entry.arguments?.getString("coffee")
+        coffee?.let {
+            DetailScreen(modifier = Modifier.fillMaxSize(),
+                coffee = Gson().fromJson(it, DomainCoffee::class.java),
+                onBack = {
+                    navController.navigateUp()
+                })
+        }
     }
 }

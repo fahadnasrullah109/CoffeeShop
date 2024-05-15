@@ -242,8 +242,7 @@ private fun SearchItem(
                         )
                         .clickable {
 
-                        },
-                    contentAlignment = Alignment.Center
+                        }, contentAlignment = Alignment.Center
                 ) {
                     Image(
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_furnitur),
@@ -380,9 +379,7 @@ private fun CoffeeGridView(
             "${it.title}${it.priceSmall}"
         }) {
             CoffeeItem(
-                modifier = Modifier.fillMaxSize(),
-                coffee = it,
-                onCoffeeSelected = onCoffeeSelected
+                modifier = Modifier.fillMaxSize(), coffee = it, onCoffeeSelected = onCoffeeSelected
             )
         }
     }
@@ -391,14 +388,12 @@ private fun CoffeeGridView(
 
 @Composable
 private fun CoffeeItem(
-    modifier: Modifier,
-    coffee: DomainCoffee,
-    onCoffeeSelected: (DomainCoffee) -> Unit
+    modifier: Modifier, coffee: DomainCoffee, onCoffeeSelected: (DomainCoffee) -> Unit
 ) {
     Card(
-        modifier = modifier.clickable {
+        onClick = {
             onCoffeeSelected.invoke(coffee)
-        }, colors = CardDefaults.cardColors(
+        }, modifier = modifier, colors = CardDefaults.cardColors(
             containerColor = Color.White
         )
     ) {
@@ -456,8 +451,7 @@ private fun CoffeeItem(
                         )
                         .clickable {
 
-                        },
-                    contentAlignment = Alignment.Center
+                        }, contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Add,
