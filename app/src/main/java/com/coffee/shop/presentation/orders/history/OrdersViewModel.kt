@@ -1,4 +1,4 @@
-package com.coffee.shop.presentation.orders
+package com.coffee.shop.presentation.orders.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

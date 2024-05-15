@@ -31,7 +31,7 @@ import com.coffee.shop.navigation.DashboardBottomNavigationDestinations
 import com.coffee.shop.presentation.favorites.FavoritesScreen
 import com.coffee.shop.presentation.home.HomeScreen
 import com.coffee.shop.presentation.notifications.NotificationsScreen
-import com.coffee.shop.presentation.orders.OrdersScreen
+import com.coffee.shop.presentation.orders.history.OrdersScreen
 import com.coffee.shop.theme.CoffeeShopTheme
 import com.coffee.shop.theme.appBgColor
 

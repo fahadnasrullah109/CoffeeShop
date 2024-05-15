@@ -1,4 +1,4 @@
-package com.coffee.shop.presentation.orders
+package com.coffee.shop.presentation.orders.history
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
