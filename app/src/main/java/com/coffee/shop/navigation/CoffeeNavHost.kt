@@ -12,14 +12,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navDeepLink
 import com.coffee.shop.domain.models.DomainCoffee
+import com.coffee.shop.domain.models.DomainOrderForPlacement
 import com.coffee.shop.navigation.AppUri.uri
 import com.coffee.shop.presentation.authentication.forgotpassword.ForgotPasswordScreen
 import com.coffee.shop.presentation.authentication.login.LoginScreen
 import com.coffee.shop.presentation.authentication.register.RegisterScreen
 import com.coffee.shop.presentation.authentication.verification.VerificationScreen
+import com.coffee.shop.presentation.checkout.CheckoutScreen
 import com.coffee.shop.presentation.dashboard.DashboardScreen
 import com.coffee.shop.presentation.detail.DetailScreen
 import com.coffee.shop.presentation.introduction.IntroductionScreen
+import com.coffee.shop.presentation.orders.place.PlaceOrderScreen
 import com.coffee.shop.presentation.splash.SplashScreen
 import com.google.gson.Gson
 
@@ -28,7 +31,7 @@ object AppUri {
 }
 
 @Composable
-fun CofeeNavHost(
+fun CoffeeNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     startDestination: String = Destinations.Splash.route
@@ -46,6 +49,8 @@ fun CofeeNavHost(
         introductionGraph(navController, "$uri/${Destinations.Introduction.route}")
         dashboardGraph(navController, "$uri/${Destinations.Dashboard.route}")
         detailGraph(navController, "$uri/${Destinations.Detail.route}")
+        placeOrderGraph(navController, "$uri/${Destinations.PlaceOrder.route}")
+        checkoutGraph(navController, "$uri/${Destinations.Checkout.route}")
     }
 }
 
@@ -182,6 +187,51 @@ fun NavGraphBuilder.detailGraph(navController: NavController, route: String) {
         coffee?.let {
             DetailScreen(modifier = Modifier.fillMaxSize(),
                 coffee = Gson().fromJson(it, DomainCoffee::class.java),
+                onBack = {
+                    navController.navigateUp()
+                },
+                onPlaceOrder = { coffee ->
+                    navController.navigate(
+                        route = "$uri/${Destinations.PlaceOrder.route}".replace(
+                            oldValue = "{coffee}", newValue = Gson().toJson(coffee)
+                        )
+                    )
+                })
+        }
+    }
+}
+
+fun NavGraphBuilder.placeOrderGraph(navController: NavController, route: String) {
+    composable(
+        route = route,
+        deepLinks = listOf(navDeepLink { uriPattern = Destinations.PlaceOrder.route })
+    ) { entry ->
+        val coffee = entry.arguments?.getString("coffee")
+        coffee?.let {
+            PlaceOrderScreen(modifier = Modifier.fillMaxSize(),
+                coffee = Gson().fromJson(it, DomainCoffee::class.java),
+                onBack = {
+                    navController.navigateUp()
+                },
+                onOrder = { order ->
+                    navController.navigate(
+                        route = "$uri/${Destinations.Checkout.route}".replace(
+                            oldValue = "{order}", newValue = Gson().toJson(order)
+                        )
+                    )
+                })
+        }
+    }
+}
+
+fun NavGraphBuilder.checkoutGraph(navController: NavController, route: String) {
+    composable(
+        route = route, deepLinks = listOf(navDeepLink { uriPattern = Destinations.Checkout.route })
+    ) { entry ->
+        val order = entry.arguments?.getString("order")
+        order?.let {
+            CheckoutScreen(modifier = Modifier.fillMaxSize(),
+                order = Gson().fromJson(it, DomainOrderForPlacement::class.java),
                 onBack = {
                     navController.navigateUp()
                 })
